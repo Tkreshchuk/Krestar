@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krestar Swimming School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --teal:        #0CB8C4;
+      --teal-dark:   #0A9AA6;
+      --teal-deeper: #097880;
+      --navy:        #1E3A5A;
+      --navy-light:  #2C5282;
+      --starfish:    #FF6B35;
+      --starfish-lt: #FF8C5A;
+      --aqua-pale:   #E0F7FA;
+      --aqua-mid:    #B2EBF2;
+      --white:       #FFFFFF;
+      --off-white:   #F4FAFB;
+      --gray-100:    #F0F4F8;
+      --gray-300:    #CBD5E0;
+      --gray-500:    #718096;
+      --gray-700:    #4A5568;
+      --grad-brand:  linear-gradient(135deg, #0CB8C4 0%, #097880 100%);
+      --grad-hero:   linear-gradient(160deg, #0CB8C4 0%, #097880 55%, #1E3A5A 100%);
+      --shadow-sm:   0 2px 8px rgba(12,184,196,.15);
+      --shadow-md:   0 8px 32px rgba(12,184,196,.18);
+      --shadow-lg:   0 20px 60px rgba(12,184,196,.2);
+      --radius:      14px;
+      --radius-lg:   24px;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a  { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ─── UTILITIES ──────────────────────────────────────────── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+    .section-label {
+      display: inline-block;
+      font-family: 'Nunito', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .section-title span { color: var(--teal); }
+    .section-sub {
+      font-size: 17px;
+      color: var(--gray-500);
+      line-height: 1.7;
+      max-width: 540px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all .25s ease;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--grad-brand);
+      color: var(--white);
+      box-shadow: 0 6px 20px rgba(12,184,196,.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(12,184,196,.5);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,.7);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,.12);
+      border-color: var(--white);
+    }
+    .btn-white {
+      background: var(--white);
+      color: var(--teal-dark);
+      box-shadow: 0 6px 20px rgba(0,0,0,.1);
+    }
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0,0,0,.15);
+    }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      transition: all .3s ease;
+    }
+    .nav.scrolled {
+      background: rgba(255,255,255,.97);
+      box-shadow: 0 2px 24px rgba(12,184,196,.12);
+      padding: 10px 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo img { height: 48px; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+    .nav-links a {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      font-size: 14.5px;
+      color: var(--white);
+      transition: color .2s;
+    }
+    .nav.scrolled .nav-links a { color: var(--navy); }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta .btn { padding: 11px 26px; font-size: 14px; }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      width: 24px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: background .3s;
+    }
+    .nav.scrolled .nav-hamburger span { background: var(--navy); }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: var(--grad-hero);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 0 80px;
+    }
+    /* animated water waves */
+    .hero::before, .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0; right: 0;
+      height: 160px;
+      background: var(--white);
+    }
+    .hero::before {
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160'%3E%3Cpath fill='%23ffffff' fill-opacity='0.3' d='M0,80 C240,160 480,0 720,80 C960,160 1200,0 1440,80 L1440,160 L0,160 Z'/%3E%3C/svg%3E") no-repeat bottom;
+      background-size: cover;
+      bottom: 0;
+      height: 120px;
+      background-color: transparent;
+    }
+    .hero::after {
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160'%3E%3Cpath fill='%23ffffff' d='M0,120 C360,40 720,160 1080,80 C1260,40 1380,100 1440,120 L1440,160 L0,160 Z'/%3E%3C/svg%3E") no-repeat bottom;
+      background-size: cover;
+      bottom: 0;
+      height: 90px;
+      background-color: transparent;
+    }
+    /* decorative blobs */
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,.05);
+      pointer-events: none;
+    }
+    .hero-blob-1 { width: 500px; height: 500px; top: -150px; right: -100px; }
+    .hero-blob-2 { width: 300px; height: 300px; bottom: 100px; left: -80px; }
+    .hero-blob-3 { width: 180px; height: 180px; top: 30%; right: 20%; }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 50px;
+      padding: 7px 18px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 24px;
+      backdrop-filter: blur(8px);
+    }
+    .hero-badge-dot {
+      width: 8px; height: 8px;
+      background: #7FFFB2;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .6; transform: scale(1.3); }
+    }
+    .hero-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(36px, 5.5vw, 62px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .hero-title span {
+      color: #7FFFCA;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,.82);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(255,255,255,.2);
+    }
+    .hero-stat-num {
+      font-family: 'Nunito', sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--white);
+    }
+    .hero-stat-lbl {
+      font-size: 13px;
+      color: rgba(255,255,255,.7);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* hero visual */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .hero-card-wrap {
+      position: relative;
+    }
+    .hero-main-card {
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      width: 360px;
+      text-align: center;
+    }
+    .hero-logo-wrap {
+      width: 120px;
+      height: 120px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.15);
+      overflow: hidden;
+      padding: 12px;
+    }
+    .hero-logo-wrap img { width: 100%; }
+    .hero-card-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .hero-card-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 24px;
+    }
+    .hero-card-divider { height: 1px; background: rgba(255,255,255,.2); margin-bottom: 20px; }
+    .hero-card-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+    .hero-card-feat {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,.85);
+      font-weight: 600;
+    }
+    .feat-icon {
+      width: 30px; height: 30px;
+      background: rgba(255,255,255,.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    /* floating badges */
+    .float-badge {
+      position: absolute;
+      background: var(--white);
+      border-radius: 12px;
+      padding: 12px 16px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: float 4s ease-in-out infinite;
+    }
+    .float-badge:nth-child(2) { animation-delay: -2s; }
+    .float-badge-left  { left: -40px; top: 20%; }
+    .float-badge-right { right: -40px; bottom: 25%; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+    .float-icon { font-size: 24px; }
+    .float-num {
+      font-family: 'Nunito', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .float-lbl { font-size: 11px; color: var(--gray-500); font-weight: 600; }
+
+    /* ─── LOGOS / TRUST ──────────────────────────────────────── */
+    .trust {
+      padding: 48px 0;
+      background: var(--gray-100);
+      border-bottom: 1px solid var(--gray-300);
+    }
+    .trust-inner {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .trust-label {
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gray-500);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .trust-badges { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+    .trust-badge {
+      background: var(--white);
+      border: 1px solid var(--gray-300);
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--gray-700);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ─── FEATURES ───────────────────────────────────────────── */
+    .features {
+      padding: 100px 0;
+      background: var(--white);
+    }
+    .features-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .features-header .section-sub { margin: 16px auto 0; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .feature-card {
+      background: var(--off-white);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      border: 1px solid transparent;
+      transition: all .3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--grad-brand);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s ease;
+    }
+    .feature-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--aqua-mid);
+      transform: translateY(-4px);
+    }
+    .feature-card:hover::before { transform: scaleX(1); }
+    .feature-icon-wrap {
+      width: 58px; height: 58px;
+      background: var(--aqua-pale);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .feature-card h3 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      font-size: 15px;
+      color: var(--gray-500);
+      line-height: 1.65;
+    }
+
+    /* ─── PROGRAMS ───────────────────────────────────────────── */
+    .programs {
+      padding: 100px 0;
+      background: var(--off-white);
+    }
+    .programs-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .program-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all .3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .program-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+    .program-img {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .program-img-1 { background: linear-gradient(135deg, #E0F7FA, #B2EBF2); }
+    .program-img-2 { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
+    .program-img-3 { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
+    .program-img-4 { background: linear-gradient(135deg, #EDE7F6, #D1C4E9); }
+    .program-tag {
+      position: absolute;
+      top: 14px; left: 14px;
+      background: var(--white);
+      border-radius: 50px;
+      padding: 4px 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--teal-dark);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .program-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .program-body h3 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .program-body p {
+      font-size: 14px;
+      color: var(--gray-500);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+    .program-meta {
+      display: flex;
+      gap: 14px;
+      margin-top: auto;
+    }
+    .program-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal-dark);
+      background: var(--aqua-pale);
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+
+    /* ─── INSTRUCTORS ────────────────────────────────────────── */
+    .instructors {
+      padding: 100px 0;
+      background: var(--white);
+    }
+    .instructors-header { text-align: center; margin-bottom: 60px; }
+    .instructors-header .section-sub { margin: 14px auto 0; }
+    .instructors-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .instructor-card {
+      text-align: center;
+      padding: 36px 24px;
+      border-radius: var(--radius-lg);
+      background: var(--off-white);
+      border: 1px solid transparent;
+      transition: all .3s ease;
+    }
+    .instructor-card:hover {
+      border-color: var(--aqua-mid);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+    .instructor-avatar {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      position: relative;
+    }
+    .avatar-1 { background: linear-gradient(135deg, #B2EBF2, #4DD0E1); }
+    .avatar-2 { background: linear-gradient(135deg, #C8E6C9, #66BB6A); }
+    .avatar-3 { background: linear-gradient(135deg, #FFE0B2, #FFA726); }
+    .instructor-badge {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 26px; height: 26px;
+      background: var(--teal);
+      border-radius: 50%;
+      border: 2px solid var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+    .instructor-card h3 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .instructor-role {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .instructor-bio {
+      font-size: 14px;
+      color: var(--gray-500);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+    .instructor-stats {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+    }
+    .ins-stat-num {
+      font-family: 'Nunito', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--navy);
+    }
+    .ins-stat-lbl { font-size: 11px; color: var(--gray-500); font-weight: 600; }
+
+    /* ─── TESTIMONIALS ───────────────────────────────────────── */
+    .testimonials {
+      padding: 100px 0;
+      background: var(--grad-hero);
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonials::before {
+      content: '"';
+      position: absolute;
+      top: -40px; left: 40px;
+      font-size: 300px;
+      color: rgba(255,255,255,.04);
+      font-family: Georgia, serif;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .testimonials-header { text-align: center; margin-bottom: 56px; }
+    .testimonials-header .section-label { color: #7FFFCA; }
+    .testimonials-header .section-title { color: var(--white); }
+    .testimonials-header .section-sub { color: rgba(255,255,255,.7); margin: 14px auto 0; }
+    .rating-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .stars { font-size: 22px; letter-spacing: 2px; }
+    .rating-num {
+      font-family: 'Nunito', sans-serif;
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--white);
+    }
+    .rating-detail {
+      font-size: 14px;
+      color: rgba(255,255,255,.65);
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: all .3s;
+    }
+    .testimonial-card:hover {
+      background: rgba(255,255,255,.16);
+      transform: translateY(-4px);
+    }
+    .testimonial-stars { font-size: 16px; margin-bottom: 14px; letter-spacing: 1px; }
+    .testimonial-text {
+      font-size: 15px;
+      color: rgba(255,255,255,.9);
+      line-height: 1.7;
+      margin-bottom: 22px;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .author-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .av-1 { background: linear-gradient(135deg, #0CB8C4, #097880); }
+    .av-2 { background: linear-gradient(135deg, #FF6B35, #E64A19); }
+    .av-3 { background: linear-gradient(135deg, #7C4DFF, #651FFF); }
+    .author-name {
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .author-role { font-size: 12px; color: rgba(255,255,255,.6); }
+
+    /* ─── PRICING ────────────────────────────────────────────── */
+    .pricing {
+      padding: 100px 0;
+      background: var(--gray-100);
+    }
+    .pricing-header { text-align: center; margin-bottom: 60px; }
+    .pricing-header .section-sub { margin: 14px auto 0; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      border: 2px solid transparent;
+      transition: all .3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-card:hover {
+      border-color: var(--aqua-mid);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+    .pricing-card.featured {
+      background: var(--grad-brand);
+      border-color: transparent;
+      box-shadow: var(--shadow-lg);
+    }
+    .pricing-card.featured:hover { transform: translateY(-6px); }
+    .popular-tag {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: var(--starfish);
+      color: var(--white);
+      font-family: 'Nunito', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .pricing-tier {
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+    .featured .pricing-tier { color: rgba(255,255,255,.8); }
+    .pricing-price {
+      font-family: 'Nunito', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .featured .pricing-price { color: var(--white); }
+    .pricing-price sup { font-size: 22px; font-weight: 700; vertical-align: top; margin-top: 10px; }
+    .pricing-freq {
+      font-size: 14px;
+      color: var(--gray-500);
+      margin-bottom: 24px;
+    }
+    .featured .pricing-freq { color: rgba(255,255,255,.7); }
+    .pricing-divider { height: 1px; background: var(--gray-300); margin-bottom: 24px; }
+    .featured .pricing-divider { background: rgba(255,255,255,.25); }
+    .pricing-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .pricing-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--gray-700);
+      font-weight: 600;
+    }
+    .featured .pricing-feature { color: rgba(255,255,255,.9); }
+    .check {
+      width: 20px; height: 20px;
+      background: var(--aqua-pale);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--teal-dark);
+      flex-shrink: 0;
+    }
+    .featured .check { background: rgba(255,255,255,.2); color: var(--white); }
+    .pricing-card .btn { width: 100%; justify-content: center; }
+    .featured .btn-primary { background: var(--white); color: var(--teal-dark); }
+    .featured .btn-primary:hover { box-shadow: 0 10px 28px rgba(0,0,0,.2); }
+
+    /* ─── FIND US ────────────────────────────────────────────── */
+    .findus {
+      padding: 100px 0;
+      background: var(--white);
+    }
+    .findus-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .findus-info { display: flex; flex-direction: column; gap: 28px; }
+    .findus-info .section-sub { max-width: 100%; }
+    .info-items { display: flex; flex-direction: column; gap: 18px; }
+    .info-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .info-icon {
+      width: 46px; height: 46px;
+      background: var(--aqua-pale);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .info-item h4 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+    .info-item p { font-size: 14px; color: var(--gray-500); line-height: 1.5; }
+    .findus-map {
+      background: var(--grad-brand);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 380px;
+      position: relative;
+      box-shadow: var(--shadow-md);
+    }
+    .map-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .map-pin { font-size: 56px; animation: bob 2s ease-in-out infinite; }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+    .map-overlay h3 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .map-overlay p { font-size: 14px; color: rgba(255,255,255,.8); text-align: center; }
+    .map-btn {
+      background: var(--white);
+      color: var(--teal-dark);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all .25s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .map-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.15); }
+
+    /* ─── CTA BANNER ─────────────────────────────────────────── */
+    .cta-banner {
+      padding: 80px 0;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(12,184,196,.3) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+    .cta-inner {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-inner .section-title { color: var(--white); margin-bottom: 16px; }
+    .cta-inner .section-sub { color: rgba(255,255,255,.7); margin: 0 auto 36px; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    .footer {
+      background: #111D2E;
+      padding: 64px 0 32px;
+      color: rgba(255,255,255,.65);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 52px;
+    }
+    .footer-brand img { height: 44px; margin-bottom: 16px; filter: brightness(0) invert(1); }
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 260px; }
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .social-btn {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,.08);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: background .2s;
+      cursor: pointer;
+    }
+    .social-btn:hover { background: var(--teal); }
+    .footer-col h4 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 18px;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 14px;
+      color: rgba(255,255,255,.6);
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--teal); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-bottom p { font-size: 13px; }
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-bottom-links a { font-size: 13px; color: rgba(255,255,255,.5); }
+    .footer-bottom-links a:hover { color: var(--teal); }
+
+    /* ─── MOBILE NAV ─────────────────────────────────────────── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--navy);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Nunito', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .mobile-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 32px;
+      cursor: pointer;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .programs-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-sub { margin: 0 auto 36px; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-visual { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .programs-grid { grid-template-columns: 1fr; }
+      .instructors-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .findus-inner { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .float-badge-left, .float-badge-right { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ──────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          <img src="Brand_assets/logo.jpg" alt="Krestar Swimming School" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#instructors">Instructors</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="#pricing" class="btn btn-primary">Enroll Now</a>
+        </div>
+        <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">&#x2715;</button>
+    <a href="#programs"    onclick="closeMobile()">Programs</a>
+    <a href="#instructors" onclick="closeMobile()">Instructors</a>
+    <a href="#reviews"     onclick="closeMobile()">Reviews</a>
+    <a href="#pricing"     onclick="closeMobile()">Pricing</a>
+    <a href="#contact"     onclick="closeMobile()">Contact</a>
+    <a href="#pricing" class="btn btn-primary" onclick="closeMobile()">Enroll Now</a>
+  </div>
+
+  <!-- ─── HERO ─────────────────────────────────────────────── -->
+  <section class="hero" id="home">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="hero-blob hero-blob-3"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <!-- Left copy -->
+        <div class="hero-copy">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Now Enrolling — Summer 2026
+          </div>
+          <h1 class="hero-title">
+            Dive Into<br />
+            <span>Excellence</span><br />
+            With Krestar
+          </h1>
+          <p class="hero-sub">
+            From first splashes to competition-level technique — Krestar Swimming School builds confident, skilled swimmers of every age and ability.
+          </p>
+          <div class="hero-actions">
+            <a href="#pricing" class="btn btn-white">Get Started Today</a>
+            <a href="#programs" class="btn btn-outline">View Programs</a>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-num">500+</div>
+              <div class="hero-stat-lbl">Students Taught</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">4.8★</div>
+              <div class="hero-stat-lbl">Average Rating</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">8+</div>
+              <div class="hero-stat-lbl">Years Experience</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right visual -->
+        <div class="hero-visual">
+          <div class="hero-card-wrap">
+            <!-- Floating left badge -->
+            <div class="float-badge float-badge-left">
+              <div class="float-icon">🏆</div>
+              <div>
+                <div class="float-num">Top Rated</div>
+                <div class="float-lbl">Swim School 2025</div>
+              </div>
+            </div>
+
+            <div class="hero-main-card">
+              <div class="hero-logo-wrap">
+                <img src="Brand_assets/logo.jpg" alt="Krestar" />
+              </div>
+              <div class="hero-card-title">Krestar Swimming</div>
+              <div class="hero-card-sub">Professional Swim Instruction</div>
+              <div class="hero-card-divider"></div>
+              <div class="hero-card-features">
+                <div class="hero-card-feat">
+                  <div class="feat-icon">🎓</div>
+                  Certified Instructors
+                </div>
+                <div class="hero-card-feat">
+                  <div class="feat-icon">👶</div>
+                  All Ages Welcome
+                </div>
+                <div class="hero-card-feat">
+                  <div class="feat-icon">🏊</div>
+                  Small Class Sizes
+                </div>
+                <div class="hero-card-feat">
+                  <div class="feat-icon">📅</div>
+                  Flexible Scheduling
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating right badge -->
+            <div class="float-badge float-badge-right">
+              <div class="float-icon">⭐</div>
+              <div>
+                <div class="float-num">4.8 / 5.0</div>
+                <div class="float-lbl">200+ Reviews</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TRUST BAR ─────────────────────────────────────────── -->
+  <section class="trust">
+    <div class="container">
+      <div class="trust-inner">
+        <span class="trust-label">Trusted &amp; Certified By</span>
+        <div class="trust-badges">
+          <div class="trust-badge">🏅 Royal Life Saving Society</div>
+          <div class="trust-badge">🎖️ Swim England Affiliated</div>
+          <div class="trust-badge">✅ DBS Checked Instructors</div>
+          <div class="trust-badge">🛡️ Fully Insured</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FEATURES ──────────────────────────────────────────── -->
+  <section class="features" id="about">
+    <div class="container">
+      <div class="features-header">
+        <span class="section-label">Why Choose Us</span>
+        <h2 class="section-title">Swimming Lessons <span>Done Right</span></h2>
+        <p class="section-sub">We combine expert instruction, a safe environment, and a passion for the water to give every student the best possible experience.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-wrap">🎓</div>
+          <h3>Expert Instructors</h3>
+          <p>All our coaches are fully certified, DBS-checked, and trained in water safety and first aid. Your safety is our priority.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap">👥</div>
+          <h3>Small Class Sizes</h3>
+          <p>We cap our classes to ensure every student receives personal attention and progresses at a pace that suits them perfectly.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap">🏊</div>
+          <h3>Heated Pools</h3>
+          <p>Our facilities feature warm, clean, well-maintained pools — comfortable for learners of all ages, including the youngest swimmers.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap">📈</div>
+          <h3>Proven Progression</h3>
+          <p>Our structured curriculum ensures visible improvement every session, with clear milestones to celebrate each achievement.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap">📅</div>
+          <h3>Flexible Scheduling</h3>
+          <p>Morning, afternoon, and weekend slots available — because your schedule matters as much as your child's progress.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap">❤️</div>
+          <h3>Fun &amp; Supportive</h3>
+          <p>We create a positive, encouraging atmosphere where students build confidence in the water and love every session.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROGRAMS ──────────────────────────────────────────── -->
+  <section class="programs" id="programs">
+    <div class="container">
+      <div class="programs-header">
+        <div>
+          <span class="section-label">Our Programs</span>
+          <h2 class="section-title">Find Your <span>Perfect Class</span></h2>
+        </div>
+        <p class="section-sub">Whether you're teaching your toddler to float or training for your first triathlon, we have the right program for you.</p>
+      </div>
+      <div class="programs-grid">
+        <!-- Card 1 -->
+        <div class="program-card">
+          <div class="program-img program-img-1">
+            <span>👶</span>
+            <span class="program-tag">Ages 6m–3yr</span>
+          </div>
+          <div class="program-body">
+            <h3>Parent &amp; Baby</h3>
+            <p>Gentle water introduction for the youngest swimmers. Build water confidence with parent support in a warm, welcoming pool.</p>
+            <div class="program-meta">
+              <span class="program-pill">⏱ 30 min</span>
+              <span class="program-pill">👥 4 max</span>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="program-card">
+          <div class="program-img program-img-2">
+            <span>🧒</span>
+            <span class="program-tag">Ages 4–12</span>
+          </div>
+          <div class="program-body">
+            <h3>Junior Swimmers</h3>
+            <p>From absolute beginners to confident stroke swimmers. Structured levels so every child progresses with confidence and fun.</p>
+            <div class="program-meta">
+              <span class="program-pill">⏱ 45 min</span>
+              <span class="program-pill">👥 6 max</span>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="program-card">
+          <div class="program-img program-img-3">
+            <span>🧑</span>
+            <span class="program-tag">Ages 13+</span>
+          </div>
+          <div class="program-body">
+            <h3>Adult Lessons</h3>
+            <p>Never swum before? Want to refine your technique? Our adult classes are relaxed, judgment-free, and highly effective.</p>
+            <div class="program-meta">
+              <span class="program-pill">⏱ 45 min</span>
+              <span class="program-pill">👥 4 max</span>
+            </div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="program-card">
+          <div class="program-img program-img-4">
+            <span>🏅</span>
+            <span class="program-tag">Advanced</span>
+          </div>
+          <div class="program-body">
+            <h3>Squad Training</h3>
+            <p>Competitive training for serious swimmers. Improve speed, stamina, and race technique under our elite coaching team.</p>
+            <div class="program-meta">
+              <span class="program-pill">⏱ 60 min</span>
+              <span class="program-pill">👥 8 max</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── INSTRUCTORS ────────────────────────────────────────── -->
+  <section class="instructors" id="instructors">
+    <div class="container">
+      <div class="instructors-header">
+        <span class="section-label">Meet The Team</span>
+        <h2 class="section-title">Your <span>Expert</span> Instructors</h2>
+        <p class="section-sub">Our coaches bring passion, patience, and professional credentials to every single lesson.</p>
+      </div>
+      <div class="instructors-grid">
+        <!-- Instructor 1 -->
+        <div class="instructor-card">
+          <div class="instructor-avatar avatar-1">
+            🏊
+            <div class="instructor-badge">✓</div>
+          </div>
+          <h3>Sarah Mitchell</h3>
+          <div class="instructor-role">Head Coach</div>
+          <p class="instructor-bio">Former competitive swimmer with 10+ years of teaching experience. Specialist in junior development and beginner confidence.</p>
+          <div class="instructor-stats">
+            <div>
+              <div class="ins-stat-num">10+</div>
+              <div class="ins-stat-lbl">Years Exp.</div>
+            </div>
+            <div>
+              <div class="ins-stat-num">300+</div>
+              <div class="ins-stat-lbl">Students</div>
+            </div>
+          </div>
+        </div>
+        <!-- Instructor 2 -->
+        <div class="instructor-card">
+          <div class="instructor-avatar avatar-2">
+            🏅
+            <div class="instructor-badge">✓</div>
+          </div>
+          <h3>James Okafor</h3>
+          <div class="instructor-role">Senior Instructor</div>
+          <p class="instructor-bio">Triathlon coach and masters swimmer. Expert in adult technique and squad training programs with a focus on endurance.</p>
+          <div class="instructor-stats">
+            <div>
+              <div class="ins-stat-num">7+</div>
+              <div class="ins-stat-lbl">Years Exp.</div>
+            </div>
+            <div>
+              <div class="ins-stat-num">200+</div>
+              <div class="ins-stat-lbl">Students</div>
+            </div>
+          </div>
+        </div>
+        <!-- Instructor 3 -->
+        <div class="instructor-card">
+          <div class="instructor-avatar avatar-3">
+            ⭐
+            <div class="instructor-badge">✓</div>
+          </div>
+          <h3>Priya Sharma</h3>
+          <div class="instructor-role">Baby &amp; Toddler Specialist</div>
+          <p class="instructor-bio">Dedicated early-years aquatics specialist. Creates joyful, gentle first experiences in water for our youngest swimmers.</p>
+          <div class="instructor-stats">
+            <div>
+              <div class="ins-stat-num">5+</div>
+              <div class="ins-stat-lbl">Years Exp.</div>
+            </div>
+            <div>
+              <div class="ins-stat-num">150+</div>
+              <div class="ins-stat-lbl">Students</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTIMONIALS ──────────────────────────────────────── -->
+  <section class="testimonials" id="reviews">
+    <div class="container">
+      <div class="testimonials-header">
+        <span class="section-label">Client Raves</span>
+        <h2 class="section-title">What Our Families Say</h2>
+        <p class="section-sub">Don't take our word for it — hear from the parents and swimmers whose lives we've changed.</p>
+      </div>
+      <div class="rating-row">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div>
+          <div class="rating-num">4.8</div>
+          <div class="rating-detail">Based on 200+ reviews</div>
+        </div>
+      </div>
+      <div class="testimonials-grid">
+        <!-- Review 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"My daughter was terrified of the water. After just 6 weeks with Sarah, she's swimming a full length completely on her own. The transformation has been absolutely incredible."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar av-1">E</div>
+            <div>
+              <div class="author-name">Emily R.</div>
+              <div class="author-role">Parent of Junior Swimmer</div>
+            </div>
+          </div>
+        </div>
+        <!-- Review 2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"I'm 45 and always avoided water. James was so patient and professional — I can now swim 20 lengths without stopping. Best investment I've made in years."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar av-2">M</div>
+            <div>
+              <div class="author-name">Marcus T.</div>
+              <div class="author-role">Adult Student</div>
+            </div>
+          </div>
+        </div>
+        <!-- Review 3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"Priya is simply magical with babies. Our twins went from crying at the poolside to giggling every session. The parent-and-baby classes are truly wonderful."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar av-3">L</div>
+            <div>
+              <div class="author-name">Lena &amp; Paul K.</div>
+              <div class="author-role">Parents of Twins, 18m</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PRICING ───────────────────────────────────────────── -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="pricing-header">
+        <span class="section-label">Pricing</span>
+        <h2 class="section-title">Simple, <span>Transparent</span> Plans</h2>
+        <p class="section-sub">No hidden fees. No long-term lock-ins. Just great lessons at honest prices.</p>
+      </div>
+      <div class="pricing-grid">
+        <!-- Starter -->
+        <div class="pricing-card">
+          <div class="pricing-tier">Starter</div>
+          <div class="pricing-price"><sup>£</sup>29</div>
+          <div class="pricing-freq">per session</div>
+          <div class="pricing-divider"></div>
+          <div class="pricing-features">
+            <div class="pricing-feature"><span class="check">✓</span> 1 lesson / week</div>
+            <div class="pricing-feature"><span class="check">✓</span> Group class (up to 6)</div>
+            <div class="pricing-feature"><span class="check">✓</span> Progress tracking</div>
+            <div class="pricing-feature"><span class="check">✓</span> Certificate on completion</div>
+          </div>
+          <a href="#contact" class="btn btn-primary">Get Started</a>
+        </div>
+        <!-- Popular -->
+        <div class="pricing-card featured">
+          <span class="popular-tag">Most Popular</span>
+          <div class="pricing-tier">Progress</div>
+          <div class="pricing-price"><sup>£</sup>49</div>
+          <div class="pricing-freq">per session</div>
+          <div class="pricing-divider"></div>
+          <div class="pricing-features">
+            <div class="pricing-feature"><span class="check">✓</span> 2 lessons / week</div>
+            <div class="pricing-feature"><span class="check">✓</span> Small group (up to 4)</div>
+            <div class="pricing-feature"><span class="check">✓</span> Detailed progress reports</div>
+            <div class="pricing-feature"><span class="check">✓</span> Priority scheduling</div>
+            <div class="pricing-feature"><span class="check">✓</span> Technique video review</div>
+          </div>
+          <a href="#contact" class="btn btn-primary">Enroll Now</a>
+        </div>
+        <!-- Elite -->
+        <div class="pricing-card">
+          <div class="pricing-tier">Elite</div>
+          <div class="pricing-price"><sup>£</sup>85</div>
+          <div class="pricing-freq">per session</div>
+          <div class="pricing-divider"></div>
+          <div class="pricing-features">
+            <div class="pricing-feature"><span class="check">✓</span> 1-on-1 private lesson</div>
+            <div class="pricing-feature"><span class="check">✓</span> Any program</div>
+            <div class="pricing-feature"><span class="check">✓</span> Bespoke training plan</div>
+            <div class="pricing-feature"><span class="check">✓</span> Unlimited scheduling</div>
+            <div class="pricing-feature"><span class="check">✓</span> Competition preparation</div>
+          </div>
+          <a href="#contact" class="btn btn-primary">Book Private</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FIND US ────────────────────────────────────────────── -->
+  <section class="findus" id="contact">
+    <div class="container">
+      <div class="findus-inner">
+        <div class="findus-info">
+          <div>
+            <span class="section-label">Find Us</span>
+            <h2 class="section-title">Ready to <span>Dive In?</span></h2>
+          </div>
+          <p class="section-sub">Come visit us and take a look at our facilities. We'd love to show you around and answer any questions you have.</p>
+          <div class="info-items">
+            <div class="info-item">
+              <div class="info-icon">📍</div>
+              <div>
+                <h4>Location</h4>
+                <p>Krestar Aquatic Centre<br />24 Poolside Lane, Westbourne<br />WB3 2AQ</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">⏰</div>
+              <div>
+                <h4>Opening Hours</h4>
+                <p>Monday – Friday: 6:30am – 9:00pm<br />Saturday – Sunday: 7:00am – 6:00pm</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">📞</div>
+              <div>
+                <h4>Get In Touch</h4>
+                <p>Phone: 01234 567 890<br />Email: hello@krestarswim.co.uk</p>
+              </div>
+            </div>
+          </div>
+          <a href="#pricing" class="btn btn-primary" style="align-self:flex-start">Book a Free Trial ↗</a>
+        </div>
+        <div class="findus-map">
+          <div class="map-overlay">
+            <div class="map-pin">📍</div>
+            <h3>Krestar Aquatic Centre</h3>
+            <p>24 Poolside Lane, Westbourne<br />WB3 2AQ</p>
+            <button class="map-btn">🗺 Open in Maps</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA BANNER ────────────────────────────────────────── -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-inner">
+        <h2 class="section-title">Start Your Swimming Journey <span>Today</span></h2>
+        <p class="section-sub">Join hundreds of happy swimmers. Your first trial lesson is completely free — no commitment required.</p>
+        <div class="cta-actions">
+          <a href="#pricing" class="btn btn-primary">Book a Free Trial</a>
+          <a href="#contact" class="btn btn-outline">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="Brand_assets/logo.jpg" alt="Krestar Swimming School" />
+          <p>Krestar Swimming School — where every swimmer finds their confidence, technique, and love for the water.</p>
+          <div class="footer-socials">
+            <div class="social-btn">📘</div>
+            <div class="social-btn">📸</div>
+            <div class="social-btn">🐦</div>
+            <div class="social-btn">▶</div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Programs</h4>
+          <div class="footer-links">
+            <a href="#programs">Parent &amp; Baby</a>
+            <a href="#programs">Junior Swimmers</a>
+            <a href="#programs">Adult Lessons</a>
+            <a href="#programs">Squad Training</a>
+            <a href="#programs">Private Lessons</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <div class="footer-links">
+            <a href="#about">About Us</a>
+            <a href="#instructors">Our Team</a>
+            <a href="#reviews">Testimonials</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-links">
+            <a href="#">01234 567 890</a>
+            <a href="#">hello@krestarswim.co.uk</a>
+            <a href="#">24 Poolside Lane</a>
+            <a href="#">Westbourne, WB3 2AQ</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Krestar Swimming School. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── JS ───────────────────────────────────────────────── -->
+  <script>
+    // Sticky nav
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Mobile menu
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.add('open');
+    });
+    document.getElementById('mobileClose').addEventListener('click', closeMobile);
+    function closeMobile() {
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.feature-card, .program-card, .instructor-card, .testimonial-card, .pricing-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(28px)';
+      el.style.transition = 'opacity .5s ease, transform .5s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
